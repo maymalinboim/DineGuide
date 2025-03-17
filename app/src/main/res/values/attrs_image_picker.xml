@@ -1,0 +1,8 @@
+<resources>
+    <declare-styleable name="ImagePicker">
+        <attr name="android:layout_width" format="dimension" />
+        <attr name="android:layout_height" format="dimension" />
+        <attr name="android:contentDescription" format="string" />
+        <attr name="android:src" format="reference" />
+    </declare-styleable>
+</resources>

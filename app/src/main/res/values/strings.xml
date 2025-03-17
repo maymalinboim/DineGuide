@@ -1,0 +1,35 @@
+<resources>
+    <string name="app_name">Dine Guide</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="register_link">Don\'t have an account come and register</string>
+    <string name="firstName">First Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="register">Register</string>
+    <string name="login_link">Already have an account come and login</string>
+    <string name="confirm_password_error">Passwords don\'t match</string>
+    <string name="password_error">Password must be 6 characters long, contain numbers,an upper case letter and a lower case letter</string>
+    <string name="email_error">Email is invalid</string>
+    <string name="name_error">Name is invalid</string>
+    <string name="upload_image">Upload Image</string>
+    <string name="uploaded_image">Uploaded Image</string>
+    <string name="edit_review">Edit Review</string>
+    <string name="delete_review">Delete Review</string>
+    <string name="add_review">Add Review</string>
+    <string name="review_title">Review Title</string>
+    <string name="review_content">Review Content</string>
+    <string name="review_image">Review Image</string>
+    <string name="review">Review</string>
+    <string name="profileFragment">Profile</string>
+    <string name="restaurantsFragment">Restaurants</string>
+    <string name="title">title</string>
+    <string name="content">content</string>
+    <string name="post_review">Post Review</string>
+    <string name="feed">Feed</string>
+    <string name="my_reviews">My Reviews</string>
+    <string name="profile">Profile</string>
+</resources>
