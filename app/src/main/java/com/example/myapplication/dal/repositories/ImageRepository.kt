@@ -2,33 +2,45 @@ package com.example.myapplication.dal.repositories
 
 import android.content.Context
 import android.net.Uri
-import android.os.Environment
 import com.bumptech.glide.Glide
+import com.cloudinary.Cloudinary
+import com.cloudinary.utils.ObjectUtils
 import com.example.myapplication.dal.room.AppDatabase
 import com.example.myapplication.models.Image
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class ImageRepository(private val context: Context) {
+    private val cloudinary = Cloudinary(ObjectUtils.asMap(
+        "cloud_name", "df9luuzoe",
+        "api_key", "132483172388964",
+        "api_secret", "0hB0kKucXUaeyNYNqb1no7BUYXQ"
+    ))
     private val localDb = AppDatabase.getDatabase(context)
 
     companion object {
-        const val LOCAL_IMAGES_DIR = "UserImages"
+        const val IMAGES_FOLDER = "images"
     }
 
-    // Upload an image and save it locally
-    fun uploadImage(imageUri: Uri, imageId: String) {
-        val localPath = saveImageLocally(imageUri, imageId)
-        localDb.imageDao().insertAll(Image(imageId, localPath))
+    suspend fun uploadImage(imageUri: Uri, imageId: String) {
+        val filePath = imageUri.path ?: return
+
+        withContext(Dispatchers.IO) {
+            val uploadResult = cloudinary.uploader().upload(filePath, ObjectUtils.asMap(
+                "public_id", "$IMAGES_FOLDER/$imageId"
+            ))
+
+            val imageUrl = uploadResult["secure_url"] as String
+            localDb.imageDao().insertAll(Image(imageId, imageUrl))
+        }
     }
 
-    // Get the local path of an image using its imageId
-    fun getImageLocalUri(imageId: String): String {
-        return localDb.imageDao().getImageById(imageId).value?.uri ?: ""
+    suspend fun getImageRemoteUri(imageId: String): Uri {
+        return withContext(Dispatchers.IO) {
+            Uri.parse("https://res.cloudinary.com/df9luuzoe/image/upload/$IMAGES_FOLDER/$imageId")
+        }
     }
 
-    // Download and cache the image locally
     fun downloadAndCacheImage(uri: Uri, imageId: String): String {
         val file = Glide.with(context)
             .asFile()
@@ -37,64 +49,46 @@ class ImageRepository(private val context: Context) {
             .get()
 
         localDb.imageDao().insertAll(Image(imageId, file.absolutePath))
-
         return file.absolutePath
     }
 
-    // Get the image path from the local database by imageId
-    fun getImagePathById(imageId: String): String {
+    fun getImageLocalUri(imageId: String): String {
+        return localDb.imageDao().getImageById(imageId).value?.uri ?: ""
+    }
+
+    suspend fun getImagePathById(imageId: String): String {
         val image = localDb.imageDao().getImageById(imageId).value
 
         if (image != null) return image.uri
 
-        val localPath = getLocalImagePath(imageId)
-        localDb.imageDao().insertAll(Image(imageId, localPath))
+        val remoteUri = getImageRemoteUri(imageId)
+        val localPath = downloadAndCacheImage(remoteUri, imageId)
 
+        localDb.imageDao().insertAll(Image(imageId, localPath))
         return localPath
     }
 
-    // Delete the image from both local storage and the local database
-    fun deleteImage(imageId: String) {
-        deleteLocalImage(imageId)
+    suspend fun deleteImage(imageId: String) {
+        withContext(Dispatchers.IO) {
+            cloudinary.uploader().destroy("$IMAGES_FOLDER/$imageId", ObjectUtils.emptyMap())
+            deleteLocalImage(imageId)
+        }
     }
 
     private fun deleteLocalImage(imageId: String) {
         val image = localDb.imageDao().getImageById(imageId).value
         image?.let {
-            val file = File(it.uri)
-            if (file.exists()) file.delete()
+            val file = Glide.with(context)
+                .asFile()
+                .load(it.uri)
+                .submit()
+                .get()
+
+            if (file.exists()) {
+                file.delete()
+            }
 
             localDb.imageDao().deleteImage(imageId)
         }
-    }
-
-    // Save an image locally on the device
-    private fun saveImageLocally(imageUri: Uri, imageId: String): String {
-        val profileDir = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), LOCAL_IMAGES_DIR)
-        if (!profileDir.exists()) profileDir.mkdirs()
-
-        val imageFile = File(profileDir, "$imageId.jpg")
-
-        try {
-            val inputStream: InputStream? = context.contentResolver.openInputStream(imageUri)
-            val outputStream = FileOutputStream(imageFile)
-
-            inputStream?.copyTo(outputStream)
-            inputStream?.close()
-            outputStream.close()
-
-            return imageFile.absolutePath
-        } catch (e: Exception) {
-            e.printStackTrace()
-            return ""
-        }
-    }
-
-    // Get the local image path from the file system
-    private fun getLocalImagePath(imageId: String): String {
-        val profileDir = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), LOCAL_IMAGES_DIR)
-        val imageFile = File(profileDir, "$imageId.jpg")
-
-        return if (imageFile.exists()) imageFile.absolutePath else ""
     }
 }

@@ -20,7 +20,7 @@ data class Review(
     @ColumnInfo(name = "timestamp")
     var timestamp: Long,
     @ColumnInfo(name = "restaurantId")
-    val restaurantId: Int = 0
+    val restaurantId: String = ""
 ) {
 
     var remoteImageUri: String? = ""
@@ -37,7 +37,7 @@ data class Review(
             else localImageUri = value
         }
 
-    constructor() : this("", "", "", "", 0, 0)
+    constructor() : this("", "", "", "", 0, "")
 
     companion object {
         const val ID_KEY = "id"
@@ -56,7 +56,7 @@ data class Review(
         val content = json[CONTENT_KEY] as? String ?: ""
         val imageUri = json[IMAGE_URI_KEY] as? String
         val timestamp = json[TIMESTAMP_KEY] as? Long ?: System.currentTimeMillis()
-        val restaurantId = json[RESTAURANT_ID_KEY] as? Int ?: 0
+        val restaurantId = json[RESTAURANT_ID_KEY] as? String ?: ""
         return Review(id, userId, title, content, timestamp, restaurantId).apply {
             this.imageUri = imageUri
         }

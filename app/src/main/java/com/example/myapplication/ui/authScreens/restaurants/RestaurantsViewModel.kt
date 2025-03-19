@@ -23,7 +23,7 @@ class RestaurantsViewModel(private val restaurantRepository: RestaurantRepositor
     private fun fetchRestaurants() {
         _isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            val restaurantList = restaurantRepository.discoverRestaurants()
+            val restaurantList = restaurantRepository.getAllRestaurants()
             _restaurants.postValue(restaurantList)
             withContext(Dispatchers.Main) { _isLoading.value = false }
         }
@@ -33,8 +33,7 @@ class RestaurantsViewModel(private val restaurantRepository: RestaurantRepositor
         _isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             val currentRestaurants = _restaurants.value ?: emptyList()
-            val restaurantList = restaurantRepository.discoverRestaurants(page = currentRestaurants.size / 15 + 1)
-            _restaurants.postValue(currentRestaurants + restaurantList)
+            _restaurants.postValue(currentRestaurants)
             withContext(Dispatchers.Main) { _isLoading.value = false }
         }
     }

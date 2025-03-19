@@ -1,5 +1,6 @@
-package com.example.myapplication.ui.myreviews
+package com.example.myapplication.ui.authScreens.myReviews
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,9 +9,7 @@ import com.example.myapplication.models.Review
 import com.example.myapplication.dal.repositories.ReviewsRepository
 import kotlinx.coroutines.launch
 
-class MyReviewsViewModel : ViewModel() {
-//    private val repository: ReviewsRepository
-
+class MyReviewsViewModel(private val repository: ReviewsRepository) : ViewModel() {
     private val _reviews = MutableLiveData<List<Review>>()
     val reviews: LiveData<List<Review>> get() = _reviews
 
@@ -24,14 +23,19 @@ class MyReviewsViewModel : ViewModel() {
     val deleteReviewEvent: LiveData<Review?> get() = _deleteReviewEvent
 
     init {
+        Log.d("moriah debug", "init")
         fetchMyReviews()
+        Log.d("moriah debug", "after fetch")
     }
 
     private fun fetchMyReviews() {
         _isLoading.value = true
         viewModelScope.launch {
-//            val result = repository.getMyReviews()
-//            _reviews.value = result
+            Log.d("moriah debug", "get")
+            val result = repository.getMyReviews()
+            Log.d("moriah debug", "after get")
+
+            _reviews.value = result
             _isLoading.value = false
         }
     }
@@ -55,7 +59,7 @@ class MyReviewsViewModel : ViewModel() {
     fun deleteReview(review: Review) {
         viewModelScope.launch {
             _isLoading.value = true
-//            repository.deleteReview(review)
+            repository.deleteReview(review.id)
             fetchMyReviews()
         }
     }

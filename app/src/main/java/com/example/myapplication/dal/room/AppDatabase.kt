@@ -13,7 +13,7 @@ import com.example.myapplication.models.Restaurant
 import com.example.myapplication.models.Review
 import com.example.myapplication.models.User
 
-@Database(entities = [User::class, Image::class, Restaurant::class, Review::class], version = 7, exportSchema = false)
+@Database(entities = [User::class, Image::class, Restaurant::class, Review::class], version = 9, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun imageDao(): ImageDao

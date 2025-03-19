@@ -9,11 +9,10 @@ import com.google.gson.annotations.SerializedName
 data class Restaurant(
     @PrimaryKey
     @SerializedName("id")
-    val id: Int = 0,
+    var id: String = "",
     @ColumnInfo(name = "name")
     val name: String = "",
-    @SerializedName("image_path")
-    @ColumnInfo(name = "image_path")
+    @ColumnInfo(name = "imagePath")
     val imagePath: String = "",
     @ColumnInfo(name = "description")
     val description: String="",
@@ -28,7 +27,7 @@ data class Restaurant(
         const val LOCATION_KEY = "location"
 
         fun fromJSON(json: Map<String, Any>): Restaurant {
-            val id = json[ID_KEY] as? Int ?: 0
+            val id = json[ID_KEY] as? String ?: ""
             val name = json[NAME_KEY] as? String ?: ""
             val imagePath = json[IMAGE_PATH_KEY] as? String ?: ""
             val description = json[DESCRIPTION_KEY] as? String ?: ""

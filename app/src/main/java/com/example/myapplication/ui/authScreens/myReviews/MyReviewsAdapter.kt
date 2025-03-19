@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.myreviews
+package com.example.myapplication.ui.authScreens.myReviews
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

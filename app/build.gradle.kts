@@ -84,6 +84,7 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:laster_version")
     implementation("androidx.navigation:navigation-ui-ktx:laster_version")
     implementation("com.google.android.gms:play-services-base:18.3.0")
+    implementation("com.cloudinary:cloudinary-android:2.0.0")
 }
 
 kapt {

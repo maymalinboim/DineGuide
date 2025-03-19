@@ -6,17 +6,8 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface RestaurantsApiService {
-    @GET("discover/restaurant")
-    suspend fun discoverRestaurants(
-        @Query("page") page: Int = 1,
-        @Query("sort_by") sortBy: String = "popularity.desc",
-        @Query("include_adult") includeAdult: Boolean = false,
-        @Query("include_video") includeVideo: Boolean = false,
-        @Query("language") language: String = "en-US"
-    ): RestaurantsDTO
-
     @GET("restaurant/{id}")
-    suspend fun getRestaurantById(@Path("id") id: Int): Restaurant
+    suspend fun getRestaurantById(@Path("id") id: String): Restaurant
 
     companion object {
         fun create(): RestaurantsApiService {
