@@ -2,12 +2,15 @@
 
 package com.example.myapplication.ui.authScreens.feed
 
+import FeedViewModelFactory
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +20,6 @@ import com.example.myapplication.dal.repositories.RestaurantRepository
 import com.example.myapplication.dal.repositories.ReviewsRepository
 import com.example.myapplication.dal.repositories.UserRepository
 import com.example.myapplication.databinding.FragmentFeedBinding
-import com.example.myapplication.ui.components.ReviewCardAdapter
 
 class Feed : Fragment() {
 
@@ -32,16 +34,26 @@ class Feed : Fragment() {
         val binding: FragmentFeedBinding = DataBindingUtil.inflate(
             inflater, R.layout.fragment_feed, container, false
         )
-        viewModel = FeedViewModel(
+
+        val factory = FeedViewModelFactory(
             args.isMyFeed,
             ReviewsRepository(requireContext()),
             ImageRepository(requireContext()),
             UserRepository(requireContext()),
             RestaurantRepository(requireContext())
         )
+
+        viewModel = ViewModelProvider(this, factory)[FeedViewModel::class.java]
+
         bindViews(binding)
         setupRecyclerView(binding)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.fetchReviews()
     }
 
     private fun bindViews(binding: FragmentFeedBinding) {

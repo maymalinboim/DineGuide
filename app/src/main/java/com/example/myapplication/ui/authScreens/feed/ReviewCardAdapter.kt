@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.components
+package com.example.myapplication.ui.authScreens.feed
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,8 +12,6 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.models.PopulatedReview
 import com.example.myapplication.models.Review
-import com.example.myapplication.ui.authScreens.feed.FeedDirections
-import com.example.myapplication.ui.authScreens.feed.FeedViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
@@ -31,7 +29,6 @@ class ReviewCardAdapter(
     }
 
     override fun onBindViewHolder(holder: ReviewCardViewHolder, position: Int) {
-        Log.d("ReviewCardAdapter", "Binding review at position: $position, Review ID: ${reviews[position].id}")
         holder.bind(reviews[position])
     }
 
@@ -97,7 +94,7 @@ class ReviewCardAdapter(
             }
         }
 
-        private fun setupEditReviewButton(reviewId: String, restaurantId: Int) {
+        private fun setupEditReviewButton(reviewId: String, restaurantId: String) {
             editReviewButton.setOnClickListener {
                 val action =
                     FeedDirections.actionFeedFragmentToAddNewReviewFragment(

@@ -38,7 +38,7 @@ class AddNewReviewViewModel(
         get() = isTitleValid.value!! && isContentValid.value!! && isImageUrlValid.value!!
 
 
-    fun fetchRestaurant(restaurantId: Int) {
+    fun fetchRestaurant(restaurantId: String) {
         isLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             try {

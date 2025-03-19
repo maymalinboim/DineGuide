@@ -1,5 +1,6 @@
 package com.example.myapplication.ui.authScreens.feed
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.lifecycle.MutableLiveData
+import com.example.myapplication.models.Restaurant
+import com.example.myapplication.models.User
 
 class FeedViewModel(
     private val isMyReviews: Boolean,
@@ -25,10 +28,11 @@ class FeedViewModel(
     val reviews: LiveData<List<Review>> = _reviews
 
     init {
+        Log.d("isMyReviews", isMyReviews.toString())
         fetchReviews()
     }
 
-    private fun fetchReviews() {
+    fun fetchReviews() {
         viewModelScope.launch(Dispatchers.IO) {
             val reviewsList: List<Review> = reviewsRepository.getAllReviews(isMyReviews)
             _reviews.postValue(reviewsList)
@@ -49,7 +53,6 @@ class FeedViewModel(
             val user = userRepository.getUserById(review.userId)
             val restaurant = restaurantRepository.getRestaurantById(review.restaurantId)
             val imageUri = imageRepository.getImagePathById(review.id)
-
 
             withContext(Dispatchers.Main) {
                 onPopulatedReviewFetched(

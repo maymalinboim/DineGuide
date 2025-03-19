@@ -3,8 +3,10 @@ package com.example.myapplication.dal.repositories
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
+import android.util.Log
 import androidx.core.net.toUri
 import com.example.myapplication.dal.room.AppDatabase
+import com.example.myapplication.models.Restaurant
 import com.google.firebase.firestore.FirebaseFirestore
 import com.example.myapplication.models.User
 import kotlinx.coroutines.tasks.await
@@ -23,7 +25,7 @@ class UserRepository(private val context: Context) {
 
     suspend fun saveUserInDB(user: User) {
         val newUser = user.copy()
-        newUser.localImageUri = null  // No need to store local image URI in Firestore
+        newUser.localImageUri = null
 
         db.collection(USERS_COLLECTION)
             .document(newUser.id)
@@ -42,7 +44,7 @@ class UserRepository(private val context: Context) {
         var user = localDb.userDao().getUserById(userId)
 
         if (user != null) {
-            user.imageUri = getUserImageUri(userId)  // This will use the imageUri getter
+            user.imageUri = getUserImageUri(userId)
             return user
         }
 

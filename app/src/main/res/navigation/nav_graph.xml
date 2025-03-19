@@ -8,7 +8,12 @@
         android:id="@+id/any_page_to_my_reviews"
         app:destination="@id/feedFragment"
         app:popUpTo="@id/restaurantsFragment"
-        app:popUpToInclusive="false" />
+        app:popUpToInclusive="false">
+        <argument
+            android:name="isMyFeed"
+            app:argType="boolean"
+            android:defaultValue="true" />
+    </action>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.myapplication.ui.unAuthScreens.login.Login"
@@ -77,14 +82,25 @@
         tools:layout="@layout/fragment_add_new_review">
         <argument
             android:name="restaurantId"
-            app:argType="integer" />
+            app:argType="string" />
         <argument
             android:name="reviewId"
             app:argType="string" />
         <action
             android:id="@+id/action_addNewReviewFragment_to_feedFragment"
             app:destination="@id/feedFragment"
-            app:popUpTo="@id/addNewReviewFragment"
-            app:popUpToInclusive="false" />
+            app:popUpTo="@id/feedFragment"
+            app:popUpToInclusive="false">
+<!--            <argument-->
+<!--                android:name="isMyFeed"-->
+<!--                app:argType="boolean"-->
+<!--                android:defaultValue="true" />-->
+        </action>
     </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/myReviewsFragment"-->
+<!--        android:name="com.example.myapplication.ui.authScreens.myReviews.MyReviewsFragment"-->
+<!--        android:label="My Reviews"-->
+<!--        tools:layout="@layout/fragment_my_reviews">-->
+<!--    </fragment>-->
 </navigation>

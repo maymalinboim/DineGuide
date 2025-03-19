@@ -43,7 +43,8 @@ class RestaurantCardAdapter(private var restaurants: List<Restaurant>) :
             itemView.findViewById<TextView>(R.id.restaurantName).text = restaurant.name
             itemView.findViewById<TextView>(R.id.restaurantDescription).text = restaurant.description
             Glide.with(itemView.context)
-                .load("https://image.tmdb.org/t/p/w500/${restaurant.imagePath}")
+//                .load("https://image.tmdb.org/t/p/w500/${restaurant.imagePath}")
+                .load(restaurant.imagePath)
                 .into(itemView.findViewById(R.id.restaurantImage))
 
             itemView.findViewById<Button>(R.id.addReviewButton).setOnClickListener {

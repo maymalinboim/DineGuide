@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.myreviews.MyReviewsFragment">
+    tools:context=".ui.authScreens.myReviews.MyReviewsFragment">
 
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.ui.myreviews.MyReviewsViewModel" />
+            type="com.example.myapplication.ui.authScreens.myReviews.MyReviewsViewModel" />
         <import type="android.view.View"/>
     </data>
 
