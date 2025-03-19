@@ -26,6 +26,8 @@ class FeedViewModel(
 ) : ViewModel() {
     private val _reviews = MutableLiveData<List<Review>>()
     val reviews: LiveData<List<Review>> = _reviews
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     init {
         Log.d("isMyReviews", isMyReviews.toString())
@@ -35,7 +37,19 @@ class FeedViewModel(
     fun fetchReviews() {
         viewModelScope.launch(Dispatchers.IO) {
             val reviewsList: List<Review> = reviewsRepository.getAllReviews(isMyReviews)
-            _reviews.postValue(reviewsList)
+            val generatedReviewList = reviewsRepository.discoverReviews()
+            _reviews.postValue(reviewsList + generatedReviewList)
+        }
+    }
+
+    fun loadMoreReviews() {
+        _isLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentReviews = _reviews.value ?: emptyList()
+            val reviewsList = reviewsRepository.discoverReviews(page = currentReviews.size / 15 + 1)
+            _reviews.postValue(currentReviews + reviewsList)
+            _reviews.postValue(currentReviews)
+            withContext(Dispatchers.Main) { _isLoading.value = false }
         }
     }
 

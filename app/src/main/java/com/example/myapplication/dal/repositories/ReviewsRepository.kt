@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import com.example.myapplication.dal.room.AppDatabase
+import com.example.myapplication.dal.services.ReviewsApiService
 import com.example.myapplication.models.Review
 import com.example.myapplication.models.User
 import com.google.firebase.auth.FirebaseAuth
@@ -13,10 +14,17 @@ import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 
 class ReviewsRepository(private val context: Context) {
+    private val apiService: ReviewsApiService = ReviewsApiService.create()
     private val db = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
     private val localDb = AppDatabase.getDatabase(context)
     private val imageRepository = ImageRepository(context)
+
+    suspend fun discoverReviews(page: Int = 1): List<Review> {
+        val reviews = apiService.discoverReviews(page = page).toReviews()
+        localDb.reviewDao().insertAll(*reviews.toTypedArray())
+        return reviews
+    }
 
     suspend fun getMyReviews(): List<Review> {
         val userId = auth.currentUser?.uid ?: return emptyList()
