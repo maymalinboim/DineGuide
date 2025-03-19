@@ -24,7 +24,6 @@ class ReviewsRepository(private val context: Context) {
             .whereEqualTo("userId", userId)
             .get()
             .await()
-        Log.d("myreviews", snapshot.documents.toString())
         return snapshot.toObjects(Review::class.java)
     }
 
@@ -76,7 +75,6 @@ class ReviewsRepository(private val context: Context) {
         val reviews = reviewsRef.get().await().documents.map { document ->
             document.toObject(Review::class.java)!!.apply { id = document.id }
         }
-        Log.d("isMyReviews", reviews.toString())
         localDb.reviewDao().insertAll(*reviews.toTypedArray())
         return reviews
     }

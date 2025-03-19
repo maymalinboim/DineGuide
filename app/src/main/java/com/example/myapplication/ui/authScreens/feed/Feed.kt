@@ -69,7 +69,6 @@ class Feed : Fragment() {
         reviewRecyclerView.adapter = reviewAdapter
 
         viewModel.reviews.observe(viewLifecycleOwner) { reviews ->
-            Log.d("FeedFragment", "Updating reviews in adapter: $reviews")
             reviewAdapter.updateReviews(reviews)
         }
     }

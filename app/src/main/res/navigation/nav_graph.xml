@@ -91,16 +91,16 @@
             app:destination="@id/feedFragment"
             app:popUpTo="@id/feedFragment"
             app:popUpToInclusive="false">
-            <argument
-                android:name="isMyFeed"
-                app:argType="boolean"
-                android:defaultValue="true" />
+<!--            <argument-->
+<!--                android:name="isMyFeed"-->
+<!--                app:argType="boolean"-->
+<!--                android:defaultValue="true" />-->
         </action>
     </fragment>
-    <fragment
-        android:id="@+id/myReviewsFragment"
-        android:name="com.example.myapplication.ui.authScreens.myReviews.MyReviewsFragment"
-        android:label="My Reviews"
-        tools:layout="@layout/fragment_my_reviews">
-    </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/myReviewsFragment"-->
+<!--        android:name="com.example.myapplication.ui.authScreens.myReviews.MyReviewsFragment"-->
+<!--        android:label="My Reviews"-->
+<!--        tools:layout="@layout/fragment_my_reviews">-->
+<!--    </fragment>-->
 </navigation>

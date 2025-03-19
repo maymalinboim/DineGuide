@@ -49,7 +49,6 @@ class UserRepository(private val context: Context) {
         }
 
         user = getUserFromFireStore(userId)
-        Log.d("moriah", user.toString())
         localDb.userDao().insertAll(user)
 
         return user.apply { imageUri = getUserImageUri(userId) }

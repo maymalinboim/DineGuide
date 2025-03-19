@@ -23,17 +23,13 @@ class MyReviewsViewModel(private val repository: ReviewsRepository) : ViewModel(
     val deleteReviewEvent: LiveData<Review?> get() = _deleteReviewEvent
 
     init {
-        Log.d("moriah debug", "init")
         fetchMyReviews()
-        Log.d("moriah debug", "after fetch")
     }
 
     private fun fetchMyReviews() {
         _isLoading.value = true
         viewModelScope.launch {
-            Log.d("moriah debug", "get")
             val result = repository.getMyReviews()
-            Log.d("moriah debug", "after get")
 
             _reviews.value = result
             _isLoading.value = false

@@ -66,9 +66,8 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.page_4 -> {
-//                    val action = NavGraphDirections.anyPageToMyReviews()
-//                    navController.navigate(action)
-                    navController.navigate(R.id.feedFragment)
+                    val action = NavGraphDirections.anyPageToMyReviews(true)
+                    navController.navigate(action)
                     true
                 }
 

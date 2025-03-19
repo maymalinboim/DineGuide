@@ -21,16 +21,11 @@ class RestaurantRepository(private val context: Context) {
     suspend fun getRestaurantById(id: String): Restaurant {
         var restaurant = localDb.restaurantDao().getRestaurantById(id)
 
-        if (restaurant != null) {
-            Log.d("getRestaurantById1", restaurant.toString())
+        if (restaurant != null)
             return restaurant
-        }
 
-        Log.d("hereee3",id.toString())
         restaurant = getRestaurantFromFireStore(id)
-        Log.d("hereee4","")
 
-        Log.d("getRestaurantById2", restaurant.toString())
         localDb.restaurantDao().insertAll(restaurant)
 
         return restaurant;

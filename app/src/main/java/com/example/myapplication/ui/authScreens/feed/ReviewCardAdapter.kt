@@ -29,7 +29,6 @@ class ReviewCardAdapter(
     }
 
     override fun onBindViewHolder(holder: ReviewCardViewHolder, position: Int) {
-        Log.d("ReviewCardAdapter", "Binding review at position: $position, Review ID: ${reviews[position].id}")
         holder.bind(reviews[position])
     }
 
@@ -37,7 +36,6 @@ class ReviewCardAdapter(
 
     fun updateReviews(newReviews: List<Review>) {
         reviews = newReviews
-        Log.d("updated reviews", "New reviews: $newReviews")
         notifyDataSetChanged()
     }
 

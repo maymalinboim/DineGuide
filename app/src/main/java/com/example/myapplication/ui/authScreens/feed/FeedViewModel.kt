@@ -35,7 +35,6 @@ class FeedViewModel(
     fun fetchReviews() {
         viewModelScope.launch(Dispatchers.IO) {
             val reviewsList: List<Review> = reviewsRepository.getAllReviews(isMyReviews)
-            Log.d("FeedViewModel", "Fetched reviews: $reviewsList")
             _reviews.postValue(reviewsList)
         }
     }
@@ -52,13 +51,8 @@ class FeedViewModel(
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val user = userRepository.getUserById(review.userId)
-            Log.d("moriah", review.toString())
             val restaurant = restaurantRepository.getRestaurantById(review.restaurantId)
-//            Log.d("moriah", restaurant.toString())
-//            val imageUri = imageRepository.getImagePathById(review.id)
-//            val user = User("1", "a", "b", "c")
-//            val restaurant = Restaurant("1", "a", "b", "c", "d")
-
+            val imageUri = imageRepository.getImagePathById(review.id)
 
             withContext(Dispatchers.Main) {
                 onPopulatedReviewFetched(

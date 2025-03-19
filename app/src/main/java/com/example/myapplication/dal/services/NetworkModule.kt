@@ -9,14 +9,15 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NetworkModule {
 
     companion object {
-        private const val BASE_URL = "https://api.themoviedb.org/3/"
-        private const val BEARER_TOKEN =
-            "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NGMxZGYwYmZiYTRiYTMyMTVlMDY0NDJlZDVhODRmNSIsInN1YiI6IjY2MjNiOTgyMmUyYjJjMDE4NzY2MjkxNCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.ZoOoGJkG8Q0s0iDo81dda5qivTjBCV7TokWNP8r7shE"
+        private const val QUERY = "restaurant review OR food review OR restaurant interior OR dining experience OR restaurant customer feedback OR food critic"
+        private const val BASE_URL = "https://api.pexels.com/v1/search?query=${QUERY}"
+        private const val API_KEY =
+            "ZDjeqcUKbhKyIeVkC8dnLDYPKSuG1fh7Wbowq4nA693oNDJbMb8oSAiC"
     }
 
     private val authInterceptor = Interceptor { chain ->
         val newRequest: Request = chain.request().newBuilder()
-            .addHeader("Authorization", "Bearer $BEARER_TOKEN")
+            .addHeader("Authorization", API_KEY)
             .addHeader("accept", "application/json")
             .build()
         chain.proceed(newRequest)
