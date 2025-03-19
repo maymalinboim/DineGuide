@@ -67,17 +67,41 @@ class ReviewsRepository(private val context: Context) {
     }
 
     suspend fun getAllReviews(isLoggedUserReviews: Boolean): List<Review> {
-        val reviewsRef = db.collection("reviews")
-            .orderBy("timestamp", Query.Direction.DESCENDING)
+        try {
+            val userId = auth.currentUser?.uid
+            Log.d("getAllReviews", "isLoggedUserReviews: $isLoggedUserReviews, userId: $userId")
 
-        if (isLoggedUserReviews) reviewsRef.whereEqualTo("userId", auth.currentUser!!.uid)
+            var reviewsRef = db.collection("reviews")
+                .orderBy("timestamp", Query.Direction.DESCENDING)
 
-        val reviews = reviewsRef.get().await().documents.map { document ->
-            document.toObject(Review::class.java)!!.apply { id = document.id }
+            if (isLoggedUserReviews) {
+                if (userId != null) {
+                    Log.d("getAllReviews", "Filtering by userId: $userId")
+                    reviewsRef = reviewsRef.whereEqualTo("userId", userId)
+                } else {
+                    Log.e("getAllReviews", "User ID is null, returning empty list")
+                    return emptyList()
+                }
+            }
+
+            val snapshot = reviewsRef.get().await()
+            val reviews = snapshot.documents.mapNotNull { document ->
+                document.toObject(Review::class.java)?.apply { id = document.id }
+            }
+
+            Log.d("getAllReviews", "Fetched ${reviews.size} reviews: $reviews")
+
+            // Save to local DB
+            localDb.reviewDao().insertAll(*reviews.toTypedArray())
+
+            return reviews
+
+        } catch (e: Exception) {
+            Log.e("getAllReviews", "Error fetching reviews", e)
+            return emptyList()
         }
-        localDb.reviewDao().insertAll(*reviews.toTypedArray())
-        return reviews
     }
+
 
     suspend fun getReviewById(reviewId: String): Review {
         var review = localDb.reviewDao().getReviewById(reviewId)
