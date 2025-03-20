@@ -37,8 +37,8 @@ class FeedViewModel(
     fun fetchReviews() {
         viewModelScope.launch(Dispatchers.IO) {
             val reviewsList: List<Review> = reviewsRepository.getAllReviews(isMyReviews)
-            val generatedReviewList = reviewsRepository.discoverReviews()
-            _reviews.postValue(reviewsList + generatedReviewList)
+            val generatedReviewList: List<Review> = reviewsRepository.discoverReviews()
+            _reviews.postValue(reviewsList)
         }
     }
 
