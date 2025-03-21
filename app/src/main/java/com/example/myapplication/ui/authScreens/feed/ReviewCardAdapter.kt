@@ -59,12 +59,17 @@ class ReviewCardAdapter(
             setFieldsVisibility(View.GONE, review.userId)
             progressBar.visibility = View.VISIBLE
 
-            // Fetch populated review for the given review
-            feedViewModel.getPopulatedReview(review) {
-                setupPopulatedReviewData(it)
+//            if (review.localImageUri.isNullOrEmpty()) {
+//                feedViewModel.getPopulatedReview(review) { populatedReview ->
+//                    setupPopulatedReviewData(populatedReview)
+//                    progressBar.visibility = View.GONE
+//                    setFieldsVisibility(View.VISIBLE, review.userId)
+//                }
+//            } else {
+                setupReviewData(review)
                 progressBar.visibility = View.GONE
                 setFieldsVisibility(View.VISIBLE, review.userId)
-            }
+//            }
         }
 
         private fun convertMillisToDateString(
@@ -110,14 +115,34 @@ class ReviewCardAdapter(
         }
 
         private fun setupPopulatedReviewData(review: PopulatedReview) {
-            reviewTitle.text = review.title
-            reviewContent.text = review.content
-            timestamp.text = convertMillisToDateString(review.timestamp)
-            reviewUser.text = "${review.user.firstName} ${review.user.lastName}"
-            reviewRestaurant.text = "Restaurant: ${review.restaurant.name}"
-            Glide.with(itemView.context)
-                .load(review.imageUri)
-                .into(reviewImage)
+            Log.d("populated", "Setting up populated review data: $review")
+
+                    reviewTitle.text = review.title
+                    reviewContent.text = review.content
+                    timestamp.text = convertMillisToDateString(review.timestamp)
+                    reviewUser.text = "${review.user.firstName ?: ""} ${review.user.lastName ?: ""}"
+                    reviewRestaurant.text = "Restaurant: ${review.restaurant.name ?: ""}"
+
+                    Glide.with(itemView.context)
+                        .load(review.imageUri)
+                        .into(reviewImage)
+
+        }
+
+        private fun setupReviewData(review: Review) {
+            Log.d("populated", "Setting up populated review data: $review")
+
+
+                    reviewTitle.text = review.title
+                    reviewContent.text = review.content
+                    timestamp.text = convertMillisToDateString(review.timestamp)
+                    reviewUser.text = review.userId
+                    reviewRestaurant.text = "Restaurant: ${review.restaurantId}"
+
+                    Glide.with(itemView.context)
+                        .load(review.remoteImageUri)
+                        .into(reviewImage)
+
         }
     }
 }

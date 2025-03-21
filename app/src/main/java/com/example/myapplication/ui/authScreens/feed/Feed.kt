@@ -1,5 +1,3 @@
-// File: java/com/example/myapplication/ui/authScreens/feed/FeedFragment.kt
-
 package com.example.myapplication.ui.authScreens.feed
 
 import FeedViewModelFactory

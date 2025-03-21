@@ -1,6 +1,5 @@
 package com.example.myapplication.dal.services
 
-import android.util.Log
 import com.example.myapplication.models.Review
 import com.example.myapplication.models.ReviewPhoto
 
@@ -43,5 +42,4 @@ data class ReviewsDTO(val page: Int = 0, val photos: List<ReviewPhoto> = emptyLi
 
         return reviews
     }
-
 }

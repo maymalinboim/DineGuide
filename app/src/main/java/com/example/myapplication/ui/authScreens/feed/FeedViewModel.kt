@@ -14,8 +14,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.lifecycle.MutableLiveData
-import com.example.myapplication.models.Restaurant
-import com.example.myapplication.models.User
 
 class FeedViewModel(
     private val isMyReviews: Boolean,
@@ -38,7 +36,7 @@ class FeedViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val reviewsList: List<Review> = reviewsRepository.getAllReviews(isMyReviews)
             val generatedReviewList: List<Review> = reviewsRepository.discoverReviews()
-            _reviews.postValue(reviewsList)
+            _reviews.postValue(generatedReviewList)
         }
     }
 
