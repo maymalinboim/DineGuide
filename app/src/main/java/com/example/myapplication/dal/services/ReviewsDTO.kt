@@ -30,11 +30,11 @@ data class ReviewsDTO(val page: Int = 0, val photos: List<ReviewPhoto> = emptyLi
         val reviews = photos.map { photo ->
             Review(
                 id = photo.id,
-                userId = "Hmo0YfwjCTNM7NDsRfQZJ3tyCq72",
-                title = "aaa",
+                userId = "",
+                title = "",
                 content = photo.alt,
                 timestamp = System.currentTimeMillis(),
-                restaurantId = "ZCunBk7xU24YcSzamozn"
+                restaurantId = ""
             ).apply {
                 imageUri = photo.src.original
             }
