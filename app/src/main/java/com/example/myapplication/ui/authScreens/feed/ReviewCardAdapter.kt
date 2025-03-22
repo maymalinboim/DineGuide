@@ -120,7 +120,7 @@ class ReviewCardAdapter(
                     reviewContent.text = review.content
                     timestamp.text = convertMillisToDateString(review.timestamp)
                     reviewUser.text = "${review.user.firstName ?: ""} ${review.user.lastName ?: ""}"
-                    reviewRestaurant.text = "Restaurant: ${review.restaurant.name ?: ""}"
+                    reviewRestaurant.text = "At ${review.restaurant.name ?: ""}"
 
                     Glide.with(itemView.context)
                         .load(review.imageUri)

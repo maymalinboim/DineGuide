@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Primary brand color -->
+    <style name="Theme.MyApplication" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <!-- Primary brand color -->
         <item name="colorPrimary">@color/red_500</item>
         <item name="colorPrimaryVariant">@color/red_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -15,5 +15,7 @@
 
         <!-- Disable dark mode -->
         <item name="android:forceDarkAllowed">false</item>
+
+        <item name="android:fontFamily">@font/roboto_slab</item>
     </style>
 </resources>

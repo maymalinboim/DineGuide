@@ -1,4 +1,5 @@
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -24,8 +25,8 @@
                 android:id="@+id/reviewUser"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:textSize="18sp"
+                android:paddingTop="4dp"
+                android:textSize="14sp"
                 android:textStyle="bold" />
 
             <View
@@ -38,7 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:paddingTop="8dp" />
+                android:paddingTop="4dp"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <TextView
@@ -47,6 +49,23 @@
             android:layout_height="wrap_content"
             android:paddingTop="4dp" />
 
+        <ImageView
+            android:id="@+id/reviewImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:contentDescription="@string/review_image"
+            android:scaleType="centerCrop" />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progress_bar"
+            style="@style/Widget.MaterialComponents.CircularProgressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:indeterminate="true"
+            android:visibility="gone" />
+
+        <!-- Review Title -->
         <TextView
             android:id="@+id/reviewTitle"
             android:layout_width="match_parent"
@@ -54,48 +73,37 @@
             android:paddingTop="4dp"
             android:textStyle="bold" />
 
+        <!-- Review Content -->
         <TextView
             android:id="@+id/reviewContent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5sp"
+            android:layout_marginBottom="5dp"
             android:paddingTop="4dp" />
 
-        <ImageView
-            android:id="@+id/reviewImage"
-            android:layout_width="match_parent"
-            android:layout_height="200sp"
-            android:contentDescription="@+id/reviewImage"
-            android:scaleType="centerCrop" />
-
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:id="@+id/progress_bar"
-            style="@style/Widget.MaterialComponents.CircularProgressIndicator"
-            android:layout_width="wrap_content"
-            android:layout_height="200sp"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:visibility="visible" />
-
+        <!-- Edit & Delete Icons -->
         <LinearLayout
-            style="?android:attr/buttonBarStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="end">
 
-            <Button
-                android:id="@+id/deleteReviewButton"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/delete_review" />
-
-            <Button
+            <ImageButton
                 android:id="@+id/editReviewButton"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/edit_review" />
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/edit_review"
+                app:srcCompat="@drawable/edit_icon"/>
+
+            <ImageButton
+                android:id="@+id/deleteReviewButton"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="@string/delete_review"
+                app:srcCompat="@drawable/delete_icon"/>
         </LinearLayout>
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

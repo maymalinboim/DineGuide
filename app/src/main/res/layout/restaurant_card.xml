@@ -38,10 +38,13 @@
             android:layout_height="200dp"
             android:contentDescription="@+id/restaurantImage"
             android:scaleType="centerCrop" />
+
         <Button
             android:id="@+id/addReviewButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/add_review_icon"
             android:text="@string/add_review" />
+
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>
