@@ -4,8 +4,6 @@ import androidx.core.net.toUri
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.firebase.Timestamp
-import java.util.Date
 
 @Entity(tableName = "reviews")
 data class Review(
@@ -22,7 +20,6 @@ data class Review(
     @ColumnInfo(name = "restaurantId")
     val restaurantId: String = ""
 ) {
-
     var remoteImageUri: String? = ""
 
     @ColumnInfo(name = "image_uri")
@@ -47,19 +44,6 @@ data class Review(
         const val IMAGE_URI_KEY = "imageUri"
         const val TIMESTAMP_KEY = "timestamp"
         const val RESTAURANT_ID_KEY = "restaurantId"
-    }
-
-    fun fromJSON(json: Map<String, Any>): Review {
-        val id = json[ID_KEY] as? String ?: ""
-        val userId = json[USER_ID_KEY] as? String ?: ""
-        val title = json[TITLE_KEY] as? String ?: ""
-        val content = json[CONTENT_KEY] as? String ?: ""
-        val imageUri = json[IMAGE_URI_KEY] as? String
-        val timestamp = json[TIMESTAMP_KEY] as? Long ?: System.currentTimeMillis()
-        val restaurantId = json[RESTAURANT_ID_KEY] as? String ?: ""
-        return Review(id, userId, title, content, timestamp, restaurantId).apply {
-            this.imageUri = imageUri
-        }
     }
 
     val json: HashMap<String, Any?>

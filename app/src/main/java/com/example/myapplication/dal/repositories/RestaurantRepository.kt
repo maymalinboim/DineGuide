@@ -1,13 +1,9 @@
 package com.example.myapplication.dal.repositories
 
 import android.content.Context
-import android.util.Log
 import com.example.myapplication.dal.room.AppDatabase
-import com.example.myapplication.dal.services.RestaurantsApiService
 import com.example.myapplication.models.Restaurant
-import com.example.myapplication.models.Review
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 
 class RestaurantRepository(private val context: Context) {

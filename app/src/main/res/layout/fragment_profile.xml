@@ -5,7 +5,6 @@
     tools:context=".ui.authScreens.profile.Profile">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.myapplication.ui.authScreens.profile.ProfileViewModel" />
@@ -14,64 +13,75 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="16dp"
         android:gravity="center"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400sp"
+            android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
             android:paddingTop="?attr/actionBarSize">
 
             <com.example.myapplication.ui.views.ImagePicker
                 android:id="@+id/image_view"
-                android:layout_width="200sp"
-                android:layout_height="200sp"
-                android:layout_weight="1"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:contentDescription="@string/uploaded_image"
-                android:src="@mipmap/add_image_round" />
+                android:src="@mipmap/add_image_round"
+                android:layout_marginBottom="12dp" />
 
             <com.example.myapplication.ui.views.CustomTextInput
                 android:id="@+id/first_name"
-                android:layout_width="370dp"
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:hint="@string/firstName"
                 android:text="@={viewModel.firstName}"
-                app:helperTextEnabled="@={!viewModel.isFirstNameValid()}" />
+                app:helperTextEnabled="@={!viewModel.isFirstNameValid()}"
+                android:layout_marginBottom="8dp" />
 
             <com.example.myapplication.ui.views.CustomTextInput
                 android:id="@+id/last_name"
-                android:layout_width="370dp"
+                android:layout_width="340dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:hint="@string/lastName"
                 android:text="@={viewModel.lastName}"
-                app:helperTextEnabled="@={viewModel.isLastNameValid()}" />
+                app:helperTextEnabled="@={viewModel.isLastNameValid()}"
+                android:layout_marginBottom="16dp" />
         </LinearLayout>
+
         <Button
             android:id="@+id/save_changes_button"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="?attr/colorPrimary"
             android:text="@string/save_changes"
-            android:textColor="?attr/colorOnPrimary" />
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/red_500"
+            android:textColor="@color/white" />
+
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress_bar"
             style="@style/Widget.MaterialComponents.CircularProgressIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_gravity="center"
             android:indeterminate="true" />
+
         <Button
             android:id="@+id/logout_button"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="?attr/colorPrimary"
             android:text="@string/logout"
-            android:textColor="?attr/colorOnPrimary" />
+            android:textSize="14sp"
+            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/red_500"
+            android:textColor="@color/white" />
     </LinearLayout>
 </layout>
