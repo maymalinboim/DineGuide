@@ -20,7 +20,7 @@ class ReviewsRepository(private val context: Context) {
     private val imageRepository = ImageRepository(context)
 
     suspend fun discoverReviews(page: Int = 1): List<Review> {
-        val reviews = apiService.searchImages().toReviews()
+        val reviews = apiService.searchImages(page = page).toReviews()
         localDb.reviewDao().insertAll(*reviews.toTypedArray())
         return reviews
     }
@@ -98,7 +98,6 @@ class ReviewsRepository(private val context: Context) {
 
             Log.d("getAllReviews", "Fetched ${reviews.size} reviews: $reviews")
 
-            // Save to local DB
             localDb.reviewDao().insertAll(*reviews.toTypedArray())
 
             return reviews

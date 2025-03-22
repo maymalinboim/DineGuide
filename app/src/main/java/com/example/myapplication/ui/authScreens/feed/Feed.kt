@@ -1,8 +1,8 @@
 package com.example.myapplication.ui.authScreens.feed
 
+import PaginationScrollListener
 import FeedViewModelFactory
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -50,7 +50,6 @@ class Feed : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel.fetchReviews()
     }
 
@@ -65,6 +64,20 @@ class Feed : Fragment() {
         reviewRecyclerView.layoutManager = layoutManager
         val reviewAdapter = ReviewCardAdapter(emptyList(), viewModel)
         reviewRecyclerView.adapter = reviewAdapter
+
+        reviewRecyclerView.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
+            override fun loadMoreItems() {
+                viewModel.loadMoreReviews()
+            }
+
+            override fun isLastPage(): Boolean {
+                return false
+            }
+
+            override fun isLoading(): Boolean {
+                return viewModel.isLoading.value ?: false
+            }
+        })
 
         viewModel.reviews.observe(viewLifecycleOwner) { reviews ->
             reviewAdapter.updateReviews(reviews)

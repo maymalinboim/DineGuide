@@ -10,10 +10,9 @@ interface ReviewsApiService {
     @GET("search")
     suspend fun searchImages(
         @Query("query") query: String = QUERY,
-    ): ReviewsDTO
-
-    @GET("movie/{id}")
-    suspend fun getMovieById(@Path("id") id: Int): Review
+        @Query("per_page") perPage: Int = 15,
+        @Query("page") page: Int = 1,
+        ): ReviewsDTO
 
     companion object {
         fun create(): ReviewsApiService {
