@@ -5,7 +5,6 @@
     tools:context=".ui.authScreens.addNewReview.AddNewReview">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.example.myapplication.ui.authScreens.addNewReview.AddNewReviewViewModel" />
@@ -15,46 +14,53 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:padding="16dp"
         android:orientation="vertical">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/add_review_title"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@={viewModel.restaurantName}"
             android:enabled="false"
-            android:textSize="24sp" />
+            android:textSize="20sp"
+            android:padding="8dp" />
 
         <com.example.myapplication.ui.views.CustomTextInput
             android:id="@+id/review_title"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/title"
             android:text="@={viewModel.title}" />
 
         <com.example.myapplication.ui.views.CustomTextInput
             android:id="@+id/review_content"
-            android:layout_width="370dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/content"
             android:inputType="textMultiLine"
-            android:lines="5"
+            android:minLines="4"
             android:text="@={viewModel.content}" />
 
         <com.example.myapplication.ui.views.ImagePicker
             android:id="@+id/image_view"
-            android:layout_width="200sp"
-            android:layout_height="200sp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:contentDescription="@string/uploaded_image"
-            android:src="@mipmap/add_image_round" />
+            android:src="@mipmap/add_image_round"
+            android:layout_marginTop="8dp" />
+
         <Button
             android:id="@+id/save_changes_button"
             style="@style/Widget.Material3.Button.ElevatedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="?attr/colorPrimary"
             android:text="@string/post_review"
-            android:textColor="?attr/colorOnPrimary" />
+            android:layout_marginTop="8dp"
+            android:padding="8dp"
+            android:textSize="14sp"
+            android:backgroundTint="@color/red_500"
+            android:textColor="@color/white" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progress_bar"
@@ -62,6 +68,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:indeterminate="true" />
+            android:indeterminate="true"
+            android:layout_marginTop="8dp"/>
     </LinearLayout>
 </layout>

@@ -9,8 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class NetworkModule {
 
     companion object {
-        private const val QUERY = "restaurant review OR food review OR restaurant interior OR dining experience OR restaurant customer feedback OR food critic"
-        private const val BASE_URL = "https://api.pexels.com/v1/search?query=${QUERY}"
+        private const val BASE_URL = "https://api.pexels.com/v1/"
         private const val API_KEY =
             "ZDjeqcUKbhKyIeVkC8dnLDYPKSuG1fh7Wbowq4nA693oNDJbMb8oSAiC"
     }
@@ -32,6 +31,4 @@ class NetworkModule {
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
-
 }

@@ -1,6 +1,5 @@
 package com.example.myapplication.ui.authScreens.restaurants
 
-import PaginationScrollListener
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -16,14 +15,9 @@ import com.example.myapplication.databinding.FragmentRestaurantsBinding
 import com.example.myapplication.ui.components.RestaurantCardAdapter
 
 class RestaurantsFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = RestaurantsFragment()
-    }
-
     private lateinit var viewModel: RestaurantsViewModel
     private lateinit var restaurantRecyclerView: RecyclerView
-    lateinit var progressBar: ProgressBar
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,20 +45,6 @@ class RestaurantsFragment : Fragment() {
         restaurantRecyclerView.layoutManager = layoutManager
         val restaurantAdapter = RestaurantCardAdapter(emptyList())
         restaurantRecyclerView.adapter = restaurantAdapter
-
-        restaurantRecyclerView.addOnScrollListener(object : PaginationScrollListener(layoutManager) {
-            override fun loadMoreItems() {
-                viewModel.loadMoreRestaurants()
-            }
-
-            override fun isLastPage(): Boolean {
-                return false
-            }
-
-            override fun isLoading(): Boolean {
-                return viewModel.isLoading.value ?: false
-            }
-        })
 
         viewModel.restaurants.observe(viewLifecycleOwner) { restaurants ->
             restaurantAdapter.updateRestaurants(restaurants)

@@ -28,13 +28,4 @@ class RestaurantsViewModel(private val restaurantRepository: RestaurantRepositor
             withContext(Dispatchers.Main) { _isLoading.value = false }
         }
     }
-
-    fun loadMoreRestaurants() {
-        _isLoading.value = true
-        viewModelScope.launch(Dispatchers.IO) {
-            val currentRestaurants = _restaurants.value ?: emptyList()
-            _restaurants.postValue(currentRestaurants)
-            withContext(Dispatchers.Main) { _isLoading.value = false }
-        }
-    }
 }
