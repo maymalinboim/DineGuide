@@ -6,12 +6,12 @@
     <string name="logout">Logout</string>
     <string name="save_changes">Save Changes</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="register_link">Don\'t have an account come and register</string>
+    <string name="register_link">Don\'t have an account? register here</string>
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
     <string name="register">Register</string>
-    <string name="login_link">Already have an account come and login</string>
-    <string name="confirm_password_error">Passwords don\'t match</string>
+    <string name="login_link">Already have an account? login here</string>
+    <string name="confirm_password_error">Confirm passwords is not matching</string>
     <string name="password_error">Password must be 6 characters long, contain numbers,an upper case letter and a lower case letter</string>
     <string name="email_error">Email is invalid</string>
     <string name="name_error">Name is invalid</string>
@@ -32,4 +32,6 @@
     <string name="feed">Feed</string>
     <string name="my_reviews">My Reviews</string>
     <string name="profile">Profile</string>
+    <string name="open_drawer">Open navigation drawer</string>
+    <string name="close_drawer">Close navigation drawer</string>
 </resources>

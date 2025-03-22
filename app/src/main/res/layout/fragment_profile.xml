@@ -21,7 +21,8 @@
             android:layout_width="match_parent"
             android:layout_height="400sp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingTop="?attr/actionBarSize">
 
             <com.example.myapplication.ui.views.ImagePicker
                 android:id="@+id/image_view"
