@@ -8,7 +8,7 @@ data class PopulatedReview(
     val content: String = "",
     val timestamp: Long,
     val restaurant: Restaurant,
-    var imageUri: String = ""
+    val imageUri: String = ""
 ) {
     constructor(review: Review, user: User, restaurant: Restaurant) : this(
         review.id,
